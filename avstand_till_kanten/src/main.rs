@@ -36,61 +36,34 @@ fn avstand(input: Vec<String>){
 
     let list:Vec<&str> = input[0].split(" ").collect();
 
-    println!("{:?}", list);
-
-    for e in list.iter(){
-        println!("{}", e);
-    }
-
-    if list.len() != 2{
-        panic!("please only 2 dimentions!")
-    }
-
-    // create 2 dim array
-
     let width: usize = list[0].parse::<usize>().unwrap();
-    let length: usize = list[1].parse::<usize>().unwrap();
+    let height: usize = list[1].parse::<usize>().unwrap();
 
-    let mut arr: Vec<Vec<u8>> = vec![vec![0; length]; width];
+    let mut arr: Vec<Vec<u64>> = vec![vec![0; height]; width];
 
     for (i_horisontal, _) in vec![0;list[0].parse::<usize>().unwrap()].iter().enumerate(){
         for (i_vertical, _) in vec![0;list[1].parse::<usize>().unwrap()].iter().enumerate(){
-            let mut value: u8 = i_vertical as u8;
-            if i_horisontal > i_vertical{
-                value = i_vertical as u8;
-            }
-            if i_vertical > i_horisontal{
-                value = i_horisontal as u8;
-            }
-
-            let distance_map: [u8; 4] = [
-                i_horisontal as u8,
-                i_vertical as u8,
-                list[1].parse::<usize>().unwrap() as u8 - i_vertical as u8 -1,
-                list[0].parse::<usize>().unwrap() as u8 - i_horisontal as u8 -1
+            let distance_map: [u64; 4] = [
+                i_horisontal as u64,
+                i_vertical as u64,
+                list[1].parse::<usize>().unwrap() as u64 - i_vertical as u64 -1,
+                list[0].parse::<usize>().unwrap() as u64 - i_horisontal as u64 -1
             ];
         
             let min = *distance_map.iter().min().unwrap();
 
-            //println!("horisontal: {} vertical: {}", i_horisontal, i_vertical);
-
-            arr[i_horisontal][i_vertical] = min as u8 + 1;
+            arr[i_horisontal][i_vertical] = min as u64 + 1;
         }
     }
 
-    for (i_e1, e1) in arr.iter().enumerate(){
+    for (i_e1, _) in arr.iter().enumerate(){
         for e2 in arr[i_e1].iter(){
             if *e2 > 9 {
                 print!(".");
                 continue;
             }
-            print!("{}", *e2 as u8);
+            print!("{}", *e2 as u64);
         }
         println!("")
     }
-
-    //println!("{:?}", arr);
-
-
-    //println!("{}, {}", list[0], list[1])
 }

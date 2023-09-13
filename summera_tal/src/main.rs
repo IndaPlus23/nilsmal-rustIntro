@@ -28,8 +28,9 @@
 fn summeratal(input: Vec<String>){
     // println!("input: {:?}", input);
 
-    let list_len: u128 = input[0].parse::<u128>().unwrap();
-    let mut list_string: String = input[1].replace("  ", " ");
+    let list_len: u128 = input[0].trim().parse::<u128>().unwrap();
+    let mut list_string: String = input[1].trim().to_string();
+    list_string = list_string.replace("  ", "");
     let list:Vec<&str> = list_string.split(" ").collect();
     
     let mut list_u128: Vec<u128>= list.iter().map(|&value| value.parse::<u128>().unwrap()).collect();
@@ -44,7 +45,7 @@ fn summeratal(input: Vec<String>){
     let middle_index: u128;
 
     if list_len%2 as u128 == 0{
-        middle_index = list_len/2;
+        middle_index = list_len/2 + 1;
     } else{
         middle_index = list_len/2 + 1;
     }
